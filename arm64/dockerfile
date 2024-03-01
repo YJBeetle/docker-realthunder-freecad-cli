@@ -1,0 +1,19 @@
+FROM debian:bookworm
+
+# APT install
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        wget \
+        &&\
+    apt-get clean &&\
+    rm -rf /var/lib/apt/lists/*
+
+RUN cd / &&\
+    wget -nc -O /tmp/FreeCAD https://github.com/realthunder/FreeCAD/releases/download/20240123stable/FreeCAD-Link-Stable-Linux-aarch64-py3.11-20240123.AppImage &&\
+    chmod a+x /tmp/FreeCAD &&\
+    /tmp/FreeCAD --appimage-extract &&\
+    rm /tmp/FreeCAD &&\
+    mv squashfs-root FreeCAD
+
+ENTRYPOINT [ "/FreeCAD/AppRun" ]
+
+CMD [ "FreeCADCmd" ]
