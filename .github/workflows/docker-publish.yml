@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "*" ]
     # Publish semver tags as releases.
-    tags: [ 'Qt*.*.*-*' ]
+    tags: [ '*' ]
   pull_request:
     branches: [ "master" ]
 
