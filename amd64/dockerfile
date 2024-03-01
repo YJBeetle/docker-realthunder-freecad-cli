@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 RUN cd / &&\
-    wget -nc -O /tmp/FreeCAD https://github.com/realthunder/FreeCAD/releases/download/20240123stable/FreeCAD-Link-Stable-Linux-x86_64-py3.11-20240123.AppImage &&\
+    wget -nc --no-check-certificate -O /tmp/FreeCAD https://github.com/realthunder/FreeCAD/releases/download/20240123stable/FreeCAD-Link-Stable-Linux-x86_64-py3.11-20240123.AppImage &&\
     chmod a+x /tmp/FreeCAD &&\
     /tmp/FreeCAD --appimage-extract &&\
     rm /tmp/FreeCAD &&\
