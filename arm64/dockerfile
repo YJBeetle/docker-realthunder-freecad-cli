@@ -14,6 +14,9 @@ RUN cd / &&\
     rm /tmp/FreeCAD &&\
     mv squashfs-root FreeCAD
 
+RUN sed -i 's|cd $PREFIX/bin||g' /FreeCAD/AppRun &&\
+    sed -i 's|"./$name" "$@"|"$PREFIX/bin/$name" "$@"|g' /FreeCAD/AppRun
+
 ENTRYPOINT [ "/FreeCAD/AppRun" ]
 
 CMD [ "FreeCADCmd" ]
