@@ -1,3 +1,5 @@
+FROM ghcr.io/cubesky/swiftshader-so:master as build-deps-swiftshader
+
 FROM debian:bookworm
 
 # APT install
@@ -16,6 +18,10 @@ RUN cd / &&\
 
 RUN sed -i 's|cd $PREFIX/bin||g' /FreeCAD/AppRun &&\
     sed -i 's|"./$name" "$@"|"$PREFIX/bin/$name" "$@"|g' /FreeCAD/AppRun
+
+COPY --from=build-deps-swiftshader /swiftshader /swiftshader
+ENV LD_LIBRARY_PATH=/swiftshader
+ENV VK_ICD_FILENAMES=/swiftshader/vk_swiftshader_icd.json
 
 ENTRYPOINT [ "/FreeCAD/AppRun" ]
 
